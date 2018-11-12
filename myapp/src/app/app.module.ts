@@ -9,6 +9,10 @@ import { HomeComponent } from './content/home/home.component';
 import { ProfileComponent } from './content/profile/profile.component';
 import { UsersComponent } from './content/users/users.component';
 import { MenuComponent } from './content/block/menu/menu.component';
+import { UsersService } from './common/service/users.service';
+import { UserDetailComponent } from './content/profile/user-detail/user-detail.component';
+import { FormChangeComponent } from './content/users/form-change/form-change.component';
+import { FormAddComponent } from './content/users/form-add/form-add.component';
 
 @NgModule({
   declarations: [
@@ -18,13 +22,16 @@ import { MenuComponent } from './content/block/menu/menu.component';
     HomeComponent,
     ProfileComponent,
     UsersComponent,
-    MenuComponent
+    MenuComponent,
+    UserDetailComponent,
+    FormChangeComponent,
+    FormAddComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [UsersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

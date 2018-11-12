@@ -1,3 +1,55 @@
-<p>
-  users works!
-</p>
+<div class="container">
+<app-menu></app-menu>
+<div class="users_list">
+  <div class="col-xs-12">
+    <h2>Users</h2>
+    <div>
+      <table class="table table-hover">
+          <tr>
+              <th>Name</th>
+              <th>Surname</th>
+              <th>SecondName</th>
+              <th>Age</th>
+              <th>E-mail</th>
+              <th>Password</th>
+              <th></th>
+          </tr>
+          <tr *ngFor="let user of users" [ngClass]="{danger:isActived(user)}">
+              <td>{{user.name}}</td>
+              <td>{{user.surname}}</td>
+              <td>{{user.secondName}}</td>
+              <td>{{user.age}}</td>
+              <td>{{user.email}}</td>
+              <td>{{user.password}}</td>
+              <td>
+            <button 
+              class="btn btn-danger" 
+              type="button" 
+              *ngIf="!isActived(user)" 
+              (click)="inDeleteUser(user)">
+              Delete</button>
+            <button 
+              class="btn btn-primary" 
+              type="button" 
+              (click)="inChangeUser(user)">
+              Change</button>
+              </td>
+          </tr>
+      </table>
+      <button 
+        class="btn btn-success" 
+        type="submit" 
+        (click)="inAddUser()">
+        Add user</button>
+    </div>
+    <div class="clear"></div>
+    <div class="form_change" *ngIf="onChange">
+      <app-form-change [user]="userChanging"></app-form-change>
+    </div>
+    <div class="form_change" *ngIf="onAdd">
+      <app-form-add></app-form-add>
+    </div>
+  </div>
+<div class="clear"></div>
+</div>
+</div>

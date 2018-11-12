@@ -1,0 +1,68 @@
+<hr/>
+<div class="col-xs-12">
+  <h2>User {{user.name}} is changing</h2>
+    <form>
+      <div class="row">
+          <div class="col-xs-12 form-group">
+            <label for="name">Name</label>
+            <input 
+            type="text" 
+            id="name" 
+            value="{{user.name}}"
+            class="form-control"
+            #nameInput>
+          </div>
+          <div class="col-xs-12 form-group">
+            <label for="surname">Surname</label>
+            <input 
+            type="text" 
+            id="surname" 
+            value="{{user.surname}}"
+            class="form-control"
+            #surname>
+          </div>
+          <div class="col-xs-12 form-group">
+            <label for="secondName">SecondName</label>
+            <input 
+            type="text" 
+            id="secondName" 
+            value="{{user.secondName}}"
+            class="form-control"
+            #secondName>
+          </div>
+          <div class="col-xs-12 form-group">
+            <label for="age">Age</label>
+            <input 
+            type="number" 
+            id="age" 
+            value="{{user.age}}"
+            class="form-control"
+            #age>
+          </div>
+          <div class="col-xs-12 form-group">
+            <label for="email">E-mail</label>
+            <input 
+            type="email" 
+            id="email" 
+            value="{{user.email}}"
+            class="form-control"
+            #email>
+          </div>
+          <div class="col-xs-12 form-group">
+            <label for="password">Password</label>
+            <input 
+            type="text" 
+            id="password" 
+            value="{{user.password}}"
+            class="form-control"
+            #password>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+            <div class="btn btn-success" type="submit" (click)="onChangeAnyUser()">Change</div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="clear"></div>

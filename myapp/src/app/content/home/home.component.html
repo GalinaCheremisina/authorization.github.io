@@ -2,24 +2,33 @@
   <div class="wthree-form">
     <div class="agileits-2">
       <h2>login</h2>
+      <p class="warning" *ngIf="warning">*Incorrect username or password.</p>
     </div>
     <form action="#" method="post">
-      <div class="w3-user">
+      <div class="form-group">
         <span><i class="fa fa-user-o" aria-hidden="true"></i></span>
-        <input type="text" name="Username" placeholder="Username" required="">
+        <input 
+          type="text" 
+          name="Username" 
+          placeholder="Username" 
+          required=""
+          #nameInput>
+          <p class="warning-Username" *ngIf="warningUsername">*Incorrect username.</p>
       </div>
       <div class="clear"></div>
-      <div class="w3-psw">
+      <div class="form-group">
         <span><i class="fa fa-key" aria-hidden="true"></i></span>
-        <input type="password" name="password" placeholder="Password" required="">
-      </div>
-      <div class="clear"></div>
-      <div class="w3l">
-        <span><a href="#">forgot password ?</a></span>  
+        <input 
+          type="password" 
+          name="password" 
+          placeholder="Password" 
+          required=""
+          #passwordInput>
+          <p class="warning-password" *ngIf="warningPassword">*Incorrect password.</p>
       </div>
       <div class="clear"></div>
       <div class="w3l-submit">
-        <input type="submit" value="login">
+        <div class="submit" (click)="onLogin()">login</div>
       </div>
       <div class="clear"></div>
     </form>
