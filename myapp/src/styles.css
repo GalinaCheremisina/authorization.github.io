@@ -1,1 +1,47 @@
-/* You can add global styles to this file, and also import other style files */
+
+@import '~font-awesome/css/font-awesome.css';
+body{
+	background:url(/assets/images/bg11.jpg),no-repeat;
+	background-size: cover;
+	background-attachment: fixed;
+}
+body a{
+transition:0.5s all;
+-webkit-transition:0.5s all;
+-moz-transition:0.5s all;
+-o-transition:0.5s all;
+-ms-transition:0.5s all;
+font-weight:400;
+}
+input[type="button"],input[type="submit"]{
+transition:0.5s all;
+-webkit-transition:0.5s all;
+-moz-transition:0.5s all;
+-o-transition:0.5s all;
+-ms-transition:0.5s all;
+}
+h1,h2,h3,h4,h5,h6{
+margin:0;	
+font-weight:400;
+transition:0.5s all;
+-webkit-transition:0.5s all;
+-moz-transition:0.5s all;
+-o-transition:0.5s all;
+-ms-transition:0.5s all;
+}
+.clear {
+clear:both;
+}
+p{
+margin:0;
+}
+ul{
+margin:0;
+padding:0;
+}
+label{
+margin:0;
+}
+img {
+    width: 100%;
+}

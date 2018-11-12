@@ -1,0 +1,21 @@
+.agileits-footer p {
+    font-size: 15px;
+    font-weight: 500;
+    text-align: center;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    padding: 5em 0 0;
+	color: #fff;
+	font-family: 'Josefin Sans', sans-serif;
+}
+.agileits-footer a {
+	font-size: 15px;
+	font-weight: 500;
+    text-decoration: none;
+	color: #fff;
+    cursor: pointer;
+	font-family: 'Josefin Sans', sans-serif;
+}
+.agileits-footer a:hover{
+	color: #20f414;
+}
