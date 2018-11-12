@@ -1,7 +1,7 @@
 
 @import '~font-awesome/css/font-awesome.css';
 body{
-	background:url(assets/images/bg11.jpg),no-repeat;
+	background:url(/assets/images/bg11.jpg) no-repeat;
 	background-size: cover;
 	background-attachment: fixed;
 }
