@@ -13,6 +13,7 @@ import { UsersService } from './common/service/users.service';
 import { UserDetailComponent } from './content/profile/user-detail/user-detail.component';
 import { FormChangeComponent } from './content/users/form-change/form-change.component';
 import { FormAddComponent } from './content/users/form-add/form-add.component';
+import { UsersModule } from './common/module/users.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { FormAddComponent } from './content/users/form-add/form-add.component';
     FooterComponent,
     HomeComponent,
     ProfileComponent,
-    UsersComponent,
+    //UsersComponent,
     MenuComponent,
     UserDetailComponent,
     FormChangeComponent,

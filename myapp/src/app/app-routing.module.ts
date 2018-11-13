@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './content/home/home.component';
-import { UsersComponent } from './content/users/users.component';
 import { ProfileComponent } from './content/profile/profile.component';
 
 const routes: Routes = [
@@ -10,12 +9,13 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
-    path: 'profile',
+    path: 'profile', 
+   // loadChildren:'./common/module/profile.module#ProfileleModule'
     component: ProfileComponent
   },
   {
-    path: 'users',
-    component: UsersComponent
+    path: 'users', 
+    loadChildren:'./common/module/users.module#UsersModule'
   },
   {
     path: '**',

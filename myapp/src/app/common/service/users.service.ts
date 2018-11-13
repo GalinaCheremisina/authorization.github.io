@@ -1,32 +1,22 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from '../model/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
 
-  userChecked:IUser;
+  private users:User[] = [
+    new User("Ivan","Petrov","Ivanovich",28,"ivan@mail.ru","111"),
+    new User("admin","admin","admin",20,"admin@mail.ru","111"),
+    new User("Lida","Penova","Sidorovna",21,"zzz@mail.ru","111"),
+    new User("Sergey","Konyahin","Sidorovich",38,"xxx@mail.ru","111"),
+    new User("Olga","Lilova","Sidorovna",19,"ccc@mail.ru","111")];
+
+  userChecked:IUser = this.users[0];
   usersChanged = new EventEmitter<IUser[]>();
 
-  private users:IUser[] = [
-    {
-      name: "Ivan",
-      surname: "Petrov",
-      secondName: "Ivanovich",
-      age: 28,
-      email: "ivan@mail.ru",
-      password: "45www", 
-    },
-    {
-      name: "admin",
-      surname: "admin",
-      secondName: "admin",
-      age: 28,
-      email: "admin@mail.ru",
-      password: "111", 
-    }
-  ];
   constructor(private _router:Router) { }
 
   getUsers():IUser[]{
@@ -36,11 +26,11 @@ export class UsersService {
     this._router.navigate(['profile']);
   }
   userFind(username:string,password:string):number{
-    for (let i = 0; i < this.users.length+1 ; i++) {
+    for (let i = 0; i < this.users.length ; i++) {
       if (this.users[i].email === username && this.users[i].password === password) return i;
     }
     return (-1);
-  }
+  } 
   userLogin(username:string,password:string):boolean{
     let index = this.userFind(username,password);
     if(index<0){
