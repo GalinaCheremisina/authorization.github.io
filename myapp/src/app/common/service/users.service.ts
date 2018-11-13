@@ -36,7 +36,7 @@ export class UsersService {
     this._router.navigate(['profile']);
   }
   userFind(username:string,password:string):number{
-    for (let i = 0; i <= this.users.length+1 ; i++) {
+    for (let i = 0; i < this.users.length+1 ; i++) {
       if (this.users[i].email === username && this.users[i].password === password) return i;
     }
     return (-1);
