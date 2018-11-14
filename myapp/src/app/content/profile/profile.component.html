@@ -1,9 +1,9 @@
-<div class="users_list">
-    <div class="col-xs-12">
-        <form class="form-horizontal" role="form">
-          <div class="row">
+<div class="col-xs-12 col-md-6 col-md-offset-3">
+  <h2>Your profile</h2>
+  <form class="">
               <div class="col-xs-12 form-group">
                 <label for="name">Name</label>
+                <span><i class="fa fa-user-o" aria-hidden="true"></i></span>
                 <input 
                 type="text" 
                 id="name" 
@@ -13,6 +13,7 @@
               </div>
               <div class="col-xs-12 form-group">
                 <label for="surname">Surname</label>
+                <span><i class="fa fa-user-o" aria-hidden="true"></i></span>
                 <input 
                 type="text" 
                 id="surname" 
@@ -21,16 +22,8 @@
                 #surname>
               </div>
               <div class="col-xs-12 form-group">
-                <label for="secondName">SecondName</label>
-                <input 
-                type="text" 
-                id="secondName" 
-                value="{{activeUser.secondName}}"
-                class="form-control"
-                #secondName>
-              </div>
-              <div class="col-xs-12 form-group">
                 <label for="age">Age</label>
+                <span><i class="fa fa-info" aria-hidden="true"></i></span>
                 <input 
                 type="number" 
                 id="age" 
@@ -40,6 +33,7 @@
               </div>
               <div class="col-xs-12 form-group">
                 <label for="email">E-mail</label>
+                <span><i class="fa fa-envelope" aria-hidden="true"></i></span>
                 <input 
                 type="email" 
                 id="email" 
@@ -49,6 +43,7 @@
               </div>
               <div class="col-xs-12 form-group">
                 <label for="password">Password</label>
+                <span><i class="fa fa-key" aria-hidden="true"></i></span>
                 <input 
                 type="text" 
                 id="password" 
@@ -56,13 +51,9 @@
                 class="form-control"
                 #password>
               </div>
-          </div>
-          <div class="row">
             <div class="col-xs-12">
-                <div class="btn btn-success" type="submit" (click)="onChangeItem()">Change</div>
+                <div class="btn btn-info" type="submit" (click)="onChangeItem()">Change</div>
             </div>
-          </div>
+            <div class="clear"></div>
         </form>
-      </div>
-      <div class="clear"></div>
-    </div>
+</div>

@@ -2,6 +2,13 @@
  * The service works users
  * @constructor
  * @param {User[]} users - The array of users
+ * @param {userChecked}  - The active user
+ * @param {userLogged}  - The event that works when a user has logged in
+ * @param {}  - The 
+ * @param {}  - The 
+ * @param {}  - The 
+ * @param {}  - The 
+ * @param {}  - The 
  */
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
@@ -13,19 +20,19 @@ import { User } from '../model/user.model';
 export class UsersService {
 
   private users:User[] = [
-    new User("Ivan","Petrov","Ivanovich",28,"ivan@mail.ru","111"),
-    new User("admin","admin","admin",20,"admin@mail.ru","111"),
-    new User("Lida","Penova","Sidorovna",21,"zzz@mail.ru","111"),
-    new User("Sergey","Konyahin","Sidorovich",38,"xxx@mail.ru","111"),
-    new User("Olga","Lilova","Sidorovna",19,"ccc@mail.ru","111")];
+    new User("Ivan","Petrov",28,"ivan@mail.ru","111"),
+    new User("admin","admin",20,"admin@mail.ru","111"),
+    new User("Lida","Penova",21,"zzz@mail.ru","111"),
+    new User("Sergey","Konyahin",38,"xxx@mail.ru","111"),
+    new User("Olga","Lilova",19,"ccc@mail.ru","111")];
 
-  userChecked: User = this.users[0];
-  userLogins = new EventEmitter<boolean>();
-  usersChanged = new EventEmitter<IUser[]>();
+  userChecked: User;
+  userLogged = new EventEmitter<boolean>();
+  usersChanged = new EventEmitter<User[]>();
 
   constructor(private _router:Router) { }
 
-  getUsers():IUser[]{
+  getUsers():User[]{
     return this.users.slice();
   }
   goToPage():void{
@@ -43,27 +50,26 @@ export class UsersService {
       return false;
     }else{
       this.userChecked = this.users[index];
-      this.userLogins.emit(true);
+      this.userLogged.emit(true);
       return true;
     }
 
   }
-  userChange(userChanged:IUser){
+  userChange(userChanged:User){
     this.userChecked.name = userChanged.name;
     this.userChecked.surname = userChanged.surname;
-    this.userChecked.secondName = userChanged.secondName;
     this.userChecked.age = userChanged.age;
     this.userChecked.email = userChanged.email;
     this.userChecked.password = userChanged.password;
     this.usersChanged.emit(this.users.slice());
     console.log(this.users);
   }
-  userIsActive(user:IUser):boolean{
+  userIsActive(user:User):boolean{
     if(user.name === this.userChecked.name && user.password ===this.userChecked.password)
     return true;
     return false;
   }
-  onDeleteUser(user:IUser){
+  onDeleteUser(user:User){
     let index = this.userFind(user.email,user.password);
     if(index<0){
       return false;
@@ -73,7 +79,7 @@ export class UsersService {
       return true;
     }
   }
-  onChangeUser(user:IUser):boolean{
+  onChangeUser(user:User):boolean{
     let index = this.userFind(user.email,user.password);
     if(index<0){
       return false;
@@ -86,14 +92,14 @@ export class UsersService {
     }
 
   }
-  onAddUser(userNew:IUser){
+  onAddUser(userNew:User){
     this.users.push(userNew);
     this.usersChanged.emit(this.users.slice());
   }
   /*The description of function inLogOut */
   inLogOut(){
     this.userChecked = new User();
-    this.userLogins.emit(false);
+    this.userLogged.emit(false);
     this._router.navigate(['']);
   }
 

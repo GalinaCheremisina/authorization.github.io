@@ -1,0 +1,45 @@
+input[type="text"],input[type="number"],input[type="email"] {
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
+    text-transform: capitalize;
+    letter-spacing: 1px;
+    float: left;
+    width: 85%;
+    margin-bottom: 1em;
+    padding: 0.1em 10px;
+    line-height: 40px;
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+    color: #000;
+    font-family: 'Raleway', sans-serif;
+    height: auto;
+    border-radius: 0;
+}
+span .fa {
+    font-size: 16px;
+    float: left;
+    background: #58dbf1;
+    color: #fff;
+    text-align: center;
+    width: 15%;
+    line-height: 40px;
+    border: none;
+    box-sizing: border-box;
+    outline: none;
+    padding: 0.1em;
+}
+label {
+    margin: 7px 0;
+    color: #fff;
+    font-weight: 500;
+    display: block;
+}
+.form-group {
+    margin-bottom: 0;
+}
+form{
+    margin: 25px 0;
+}
+h2{color:#fff}

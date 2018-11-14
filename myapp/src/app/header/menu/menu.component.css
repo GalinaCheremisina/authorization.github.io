@@ -1,3 +1,11 @@
+.navbar-default {
+    background-color: #58dbf1;
+    border-color: #e7e7e7;
+}
+.navbar-nav>li>a{
+    color:#fff;
+    font-size: 16px;
+}
 .navbar-nav>li>a.active,.navbar-nav>li>a:hover{
     text-decoration: underline;
     color:#061a59;

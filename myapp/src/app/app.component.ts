@@ -8,11 +8,13 @@ import { UsersService } from './common/service/users.service';
 })
 export class AppComponent implements OnInit {
   
-  userLogins:boolean = false;
+  userLogged:boolean = false;
+
   constructor(private _userService:UsersService){}
+  
   ngOnInit(){
-    this._userService.userLogins.subscribe(
-      (value:boolean)=>{ this.userLogins = value}
+    this._userService.userLogged.subscribe(
+      (value:boolean)=>{ this.userLogged = value}
     )
   }
 }

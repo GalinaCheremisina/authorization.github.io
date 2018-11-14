@@ -8,12 +8,13 @@ import { UsersService } from 'src/app/common/service/users.service';
 })
 export class MenuComponent implements OnInit{
 
-  userLogins:boolean;
+  userLogged:boolean;
+  
   constructor(private _userService:UsersService) {}
 
   ngOnInit(){
-    this._userService.userLogins.subscribe(
-      (value:boolean)=>{ this.userLogins = value}
+    this._userService.userLogged.subscribe(
+      (value:boolean)=>{ this.userLogged = value}
     )
   }
 

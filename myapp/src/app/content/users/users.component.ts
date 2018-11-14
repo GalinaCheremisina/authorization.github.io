@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/common/service/users.service';
+import { User } from 'src/app/common/model/user.model';
 
 @Component({
   selector: 'app-users',
@@ -8,8 +9,8 @@ import { UsersService } from 'src/app/common/service/users.service';
 })
 export class UsersComponent implements OnInit {
 
-  users:IUser[];
-  userChanging:IUser;
+  users:User[];
+  userChanging:User;
   onChange:boolean = false;
   onAdd:boolean = false;
   constructor(private _userService:UsersService) { }
@@ -17,20 +18,20 @@ export class UsersComponent implements OnInit {
   ngOnInit() {
     this.users = this._userService.getUsers();
     this._userService.usersChanged.subscribe(
-      (users:IUser[])=>{
+      (users:User[])=>{
         this.users = users;
         this.onAdd = false;
         this.onChange = false;
       }
     );
   }
-  isActived(user:IUser):boolean{
+  isActived(user:User):boolean{
     return this._userService.userIsActive(user);
   }
-  inDeleteUser(user:IUser){
+  inDeleteUser(user:User){
     this._userService.onDeleteUser(user);
   }
-  inChangeUser(user:IUser){
+  inChangeUser(user:User){
     this.userChanging = user;
     if(this.isActived(user)) this._userService.goToPage();
     this.onChange = true;
