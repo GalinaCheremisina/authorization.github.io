@@ -1,3 +1,8 @@
+/**
+ * The service works users
+ * @constructor
+ * @param {User[]} users - The array of users
+ */
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../model/user.model';
@@ -14,7 +19,8 @@ export class UsersService {
     new User("Sergey","Konyahin","Sidorovich",38,"xxx@mail.ru","111"),
     new User("Olga","Lilova","Sidorovna",19,"ccc@mail.ru","111")];
 
-  userChecked:IUser = this.users[0];
+  userChecked: User = this.users[0];
+  userLogins = new EventEmitter<boolean>();
   usersChanged = new EventEmitter<IUser[]>();
 
   constructor(private _router:Router) { }
@@ -37,6 +43,7 @@ export class UsersService {
       return false;
     }else{
       this.userChecked = this.users[index];
+      this.userLogins.emit(true);
       return true;
     }
 
@@ -82,6 +89,12 @@ export class UsersService {
   onAddUser(userNew:IUser){
     this.users.push(userNew);
     this.usersChanged.emit(this.users.slice());
+  }
+  /*The description of function inLogOut */
+  inLogOut(){
+    this.userChecked = new User();
+    this.userLogins.emit(false);
+    this._router.navigate(['']);
   }
 
 }

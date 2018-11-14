@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/common/service/users.service';
-import { MenuComponent } from '../block/menu/menu.component';
 
 @Component({
   selector: 'app-users',

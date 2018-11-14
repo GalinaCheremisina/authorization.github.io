@@ -1,6 +1,9 @@
-<div class="contener-flued w3ls-main">
-<app-header></app-header>
-<router-outlet></router-outlet>
-<app-footer></app-footer>  
+<div class="w3ls-main">
+<div class="container">
+    <app-header></app-header>
+    <div class="col-xs-12" [ngClass]="{wrapper:userLogins}">
+        <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
 </div>
-
+</div>
