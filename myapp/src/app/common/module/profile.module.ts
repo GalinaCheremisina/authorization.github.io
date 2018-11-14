@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ProfileComponent } from 'src/app/content/profile/profile.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 const routes:Routes = [
   { path:'',
@@ -12,6 +13,8 @@ const routes:Routes = [
   declarations: [ProfileComponent],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routes)
   ]
 })

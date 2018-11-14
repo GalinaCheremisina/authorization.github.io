@@ -30,6 +30,28 @@ span .fa {
     outline: none;
     padding: 0.1em;
 }
+span.check .fa{
+    font-size: 16px;
+    position: absolute;
+    background: transparent;
+    color: #000;
+    text-align: center;
+    right: 0;
+    line-height: 40px;
+    border: none;
+    box-sizing: border-box;
+    outline: none;
+    padding: 0;
+    display: none;
+}
+span.check .fa-times{
+    display: inline;
+    color:red;
+}
+span.check .fa-check{
+    display: inline;
+    color:green;
+}
 label {
     margin: 7px 0;
     color: #fff;
@@ -38,6 +60,7 @@ label {
 }
 .form-group {
     margin-bottom: 0;
+    position: relative;
 }
 form{
     margin: 25px 0;

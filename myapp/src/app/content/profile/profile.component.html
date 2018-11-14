@@ -1,56 +1,79 @@
 <div class="col-xs-12 col-md-6 col-md-offset-3">
   <h2>Your profile</h2>
-  <form class="">
+  <form class="" [formGroup]="fullFormControl">
               <div class="col-xs-12 form-group">
                 <label for="name">Name</label>
                 <span><i class="fa fa-user-o" aria-hidden="true"></i></span>
                 <input 
-                type="text" 
-                id="name" 
-                value="{{activeUser.name}}"
-                class="form-control"
-                #nameInput>
+                formControlName="nameControl"
+                type="text">
               </div>
               <div class="col-xs-12 form-group">
                 <label for="surname">Surname</label>
                 <span><i class="fa fa-user-o" aria-hidden="true"></i></span>
                 <input 
-                type="text" 
-                id="surname" 
-                value="{{activeUser.surname}}"
-                class="form-control"
-                #surname>
+                formControlName="surnameControl"
+                type="text">
               </div>
               <div class="col-xs-12 form-group">
                 <label for="age">Age</label>
                 <span><i class="fa fa-info" aria-hidden="true"></i></span>
                 <input 
-                type="number" 
-                id="age" 
-                value="{{activeUser.age}}"
-                class="form-control"
-                #age>
+                formControlName="ageControl"
+                type="number">
               </div>
               <div class="col-xs-12 form-group">
                 <label for="email">E-mail</label>
                 <span><i class="fa fa-envelope" aria-hidden="true"></i></span>
                 <input 
-                type="email" 
-                id="email" 
-                value="{{activeUser.email}}"
-                class="form-control"
-                #email>
+                formControlName="emailControl"
+                type="email">
+                <span class="check">
+                  <i class="fa"
+                    [ngClass]="{'fa-times':(!fullFormControl.value.emailControl.valid && focusEmailInput),
+                                'fa-check':(fullFormControl.value.emailControl.valid)}" 
+                    aria-hidden="true">
+                </i></span>
               </div>
               <div class="col-xs-12 form-group">
                 <label for="password">Password</label>
                 <span><i class="fa fa-key" aria-hidden="true"></i></span>
                 <input 
-                type="text" 
-                id="password" 
-                value="{{activeUser.password}}"
-                class="form-control"
-                #password>
+                formControlName="passwordControl"
+                type="text">
+                <span class="check">
+                  <i class="fa"
+                    [ngClass]="{'fa-times':(!fullFormControl.value.passwordControl.valid && focusPasswordInput),
+                                'fa-check':(fullFormControl.value.passwordControl.valid)}" 
+                    aria-hidden="true">
+                </i></span>
               </div>
+              <!--div class="col-xs-12 form-group">
+                <label for="email">E-mail</label>
+                <span><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                <input 
+                formControlName="emailControl"
+                type="email">
+                <span class="check">
+                  <i class="fa"
+                    [ngClass]="{'fa-times':(!nameControl.valid && focusEmailInput),
+                                'fa-check':(nameControl.valid)}" 
+                    aria-hidden="true">
+                </i></span>
+              </div>
+              <div class="col-xs-12 form-group">
+                <label for="password">Password</label>
+                <span><i class="fa fa-key" aria-hidden="true"></i></span>
+                <input 
+                formControlName="passwordControl"
+                type="text">
+                <span class="check">
+                  <i class="fa"
+                    [ngClass]="{'fa-times':(!passwordControl.valid && focusPasswordInput),
+                                'fa-check':(passwordControl.valid)}" 
+                    aria-hidden="true">
+                </i></span>
+              </div-->
             <div class="col-xs-12">
                 <div class="btn btn-info" type="submit" (click)="onChangeItem()">Change</div>
             </div>
