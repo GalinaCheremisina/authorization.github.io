@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
-  onChangeItem(user:User){
+  onChangeItem(){
     if(this.fullFormControl.valid){
      let userChanged:User = new User(
       this.fullFormControl.value.nameControl,

@@ -55,19 +55,7 @@ export class UsersService {
     }
 
   }
-  activeUserChange(userChanged:User){
-    this.userChecked.name = userChanged.name;
-    this.userChecked.surname = userChanged.surname;
-    this.userChecked.age = userChanged.age;
-    this.userChecked.email = userChanged.email;
-    this.userChecked.password = userChanged.password;
-    this.usersChanged.emit(this.users.slice());
-    console.log(this.users);
-  }
-  userChange(userChanged:User){
-    let index = this.userFind(userChanged.email,userChanged.password);
-
-
+  activeUserChange(userChanged:User):void{
     this.userChecked.name = userChanged.name;
     this.userChecked.surname = userChanged.surname;
     this.userChecked.age = userChanged.age;
@@ -81,7 +69,7 @@ export class UsersService {
     return true;
     return false;
   }
-  onDeleteUser(user:User){
+  onDeleteUser(user:User):boolean{
     let index = this.userFind(user.email,user.password);
     if(index<0){
       return false;
@@ -105,12 +93,12 @@ export class UsersService {
     }
 
   }
-  onAddUser(userNew:User){
+  onAddUser(userNew:User):void{
     this.users.push(userNew);
     this.usersChanged.emit(this.users.slice());
   }
   /*The description of function inLogOut */
-  inLogOut(){
+  inLogOut():void{
     this.userChecked = new User();
     this.userLogged.emit(false);
     this._router.navigate(['']);
