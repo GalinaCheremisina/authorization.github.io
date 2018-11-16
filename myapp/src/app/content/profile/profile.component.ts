@@ -12,8 +12,9 @@ export class ProfileComponent implements OnInit {
 
   activeUser:User;
   fullFormControl:FormGroup;
-  focusEmailInput:boolean;
-  focusPasswordInput:boolean;
+  validEmailInput:boolean = true;
+  validPasswordInput:boolean = true;
+  successChange:boolean;
 
   constructor(private _userService:UsersService) { }
 
@@ -28,19 +29,30 @@ export class ProfileComponent implements OnInit {
     });
     this.fullFormControl.valueChanges.subscribe(
       (value)=>{ 
-        if(value.emailControl!==this.activeUser.email) this.focusEmailInput = true;
-        if(value.passwordControl!==this.activeUser.password) this.focusPasswordInput = true;      
+        const pattern:RegExp = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+
+        if(value.emailControl!==this.activeUser.email){
+          if(pattern.test(value.emailControl)) this.validEmailInput = true;
+            else this.validEmailInput = false;          
+        } else this.validEmailInput = true;
+        if(value.passwordControl!==this.activeUser.password){
+          if(value.passwordControl.toString().length >2) this.validPasswordInput = true;
+            else this.validPasswordInput = false;
+        } else this.validPasswordInput = true;
       }
     );
   }
   onChangeItem(user:User){
-    let userChanged:User = new User(
+    if(this.fullFormControl.valid){
+     let userChanged:User = new User(
       this.fullFormControl.value.nameControl,
       this.fullFormControl.value.surnameControl,
       this.fullFormControl.value.ageControl,
       this.fullFormControl.value.emailControl, 
-      this.fullFormControl.value.passwordControl);
-    this._userService.userChange(userChanged);
+      this.fullFormControl.value.passwordControl);  
+    this._userService.activeUserChange(userChanged);
+    this.successChange = true;   
+    }
   }
 }
 

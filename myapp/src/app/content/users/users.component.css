@@ -1,5 +1,12 @@
 .users_list{
-    background: #e7e7e7;
-    padding: 2em 0;
+    color: #fff;
 }
 .btn{margin:0 5px;}
+.info td{color:#000}
+.table {
+    width: auto;
+    max-width: 100%;
+    margin: 25px auto;
+}
+h2{text-align: center;}
+.add_user{float: right;}

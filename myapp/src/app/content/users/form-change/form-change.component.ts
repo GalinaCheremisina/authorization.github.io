@@ -1,33 +1,71 @@
-import { Component, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/common/service/users.service';
+import { User } from 'src/app/common/model/user.model';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-form-change',
   templateUrl: './form-change.component.html',
   styleUrls: ['./form-change.component.css']
 })
-export class FormChangeComponent {
+export class FormChangeComponent implements OnInit {
 
-  @Input() user:IUser;
-  @ViewChild('nameInput') nameInputRef:ElementRef;
-  @ViewChild('surname') surnameInputRef:ElementRef;
-  @ViewChild('secondName') secondNameRef:ElementRef;
-  @ViewChild('age') ageRef:ElementRef;
-  @ViewChild('email') emailRef:ElementRef;
-  @ViewChild('password') passwordRef:ElementRef;
+  user:User; 
+  userChanged:User;  
+  fullFormControl:FormGroup;
+  validEmailInput:boolean = true;
+  validPasswordInput:boolean = true;
+  successChange:boolean;
 
-  constructor(private _userService:UsersService) { }
+  constructor(
+    private _userService:UsersService,
+    public bsModalRef: BsModalRef) { }
 
-  onChangeAnyUser(){
-    let userChanged:IUser = {
-      name: this.nameInputRef.nativeElement.value,
-      surname: this.surnameInputRef.nativeElement.value,
-      secondName: this.secondNameRef.nativeElement.value,
-      age: this.ageRef.nativeElement.value,
-      email: this.emailRef.nativeElement.value,
-      password: this.passwordRef.nativeElement.value, 
-    }
-    this._userService.onChangeUser(userChanged);
+  ngOnInit(){
+    
+    this.userChanged = this.user;
+    this.fullFormControl = new FormGroup({
+      nameControl : new FormControl(this.user.name,[]),
+      surnameControl : new FormControl(this.user.surname,[]),
+      ageControl : new FormControl(this.user.age,[Validators.maxLength(2)]),
+      emailControl : new FormControl(this.user.email,[Validators.required,emailValidator]),
+      passwordControl : new FormControl(this.user.password,[Validators.minLength(3),Validators.required]),
+    });
+    this.fullFormControl.valueChanges.subscribe(
+      (value)=>{ 
+        const pattern:RegExp = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+
+        if(value.emailControl!==this.user.email){
+          if(pattern.test(value.emailControl)) this.validEmailInput = true;
+            else this.validEmailInput = false;          
+        } else this.validEmailInput = true;
+        if(value.passwordControl!==this.user.password){
+          if(value.passwordControl.toString().length >2) this.validPasswordInput = true;
+            else this.validPasswordInput = false;
+        } else this.validPasswordInput = true;
+      }
+    );
   }
 
+  onChangeAnyUser(){
+    if(this.fullFormControl.valid){
+     let userChanged:User = new User(
+      this.fullFormControl.value.nameControl,
+      this.fullFormControl.value.surnameControl,
+      this.fullFormControl.value.ageControl,
+      this.fullFormControl.value.emailControl, 
+      this.fullFormControl.value.passwordControl);  
+    this._userService.onChangeUser(this.userChanged,userChanged);
+    this.successChange = true;   
+    }
+  }
+
+}
+
+function emailValidator(formControl:FormControl){
+  let pattern:RegExp = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
+  if(!pattern.test(formControl.value)) 
+    return {emailValidator:{message:'E-mail incorrect'}};
+    return null;
 }

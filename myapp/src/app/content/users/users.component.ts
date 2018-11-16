@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { UsersService } from 'src/app/common/service/users.service';
 import { User } from 'src/app/common/model/user.model';
+import { BsModalRef,BsModalService } from 'ngx-bootstrap/modal';
+import { FormChangeComponent } from './form-change/form-change.component';
+import { FormAddComponent } from './form-add/form-add.component';
 
 @Component({
   selector: 'app-users',
@@ -13,7 +16,10 @@ export class UsersComponent implements OnInit {
   userChanging:User;
   onChange:boolean = false;
   onAdd:boolean = false;
-  constructor(private _userService:UsersService) { }
+  bsModalRef: BsModalRef;
+  constructor(
+    private _userService:UsersService,
+    private _modalService: BsModalService) { }
 
   ngOnInit() {
     this.users = this._userService.getUsers();
@@ -37,7 +43,22 @@ export class UsersComponent implements OnInit {
     this.onChange = true;
   }
   inAddUser(){
-    this.onAdd = true;
+    this.bsModalRef = this._modalService.show(FormAddComponent); 
+  }
+  public openModal(modalWindow: TemplateRef<string>){
+    //this.modalRef = this._modalService.show(modalWindow);
+  }
+  openModalWithComponent(userChek:User){
+    const initialState = {
+      user: {
+        name: userChek.name,
+        surname: userChek.surname,
+        age: userChek.age,
+        email: userChek.email,
+        password: userChek.password,
+      }
+    };
+    this.bsModalRef = this._modalService.show(FormChangeComponent, {initialState});
   }
 
 }

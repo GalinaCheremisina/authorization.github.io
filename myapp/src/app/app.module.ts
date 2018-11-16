@@ -12,6 +12,7 @@ import { UsersService } from './common/service/users.service';
 import { FormChangeComponent } from './content/users/form-change/form-change.component';
 import { FormAddComponent } from './content/users/form-add/form-add.component';
 import { MenuComponent } from './header/menu/menu.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -24,11 +25,16 @@ import { MenuComponent } from './header/menu/menu.component';
     FormChangeComponent,
     FormAddComponent
   ],
+  entryComponents:[
+    FormChangeComponent,
+    FormAddComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ModalModule.forRoot()
   ],
   providers: [UsersService],
   bootstrap: [AppComponent]

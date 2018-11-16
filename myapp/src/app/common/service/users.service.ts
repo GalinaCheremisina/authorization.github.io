@@ -55,7 +55,19 @@ export class UsersService {
     }
 
   }
+  activeUserChange(userChanged:User){
+    this.userChecked.name = userChanged.name;
+    this.userChecked.surname = userChanged.surname;
+    this.userChecked.age = userChanged.age;
+    this.userChecked.email = userChanged.email;
+    this.userChecked.password = userChanged.password;
+    this.usersChanged.emit(this.users.slice());
+    console.log(this.users);
+  }
   userChange(userChanged:User){
+    let index = this.userFind(userChanged.email,userChanged.password);
+
+
     this.userChecked.name = userChanged.name;
     this.userChecked.surname = userChanged.surname;
     this.userChecked.age = userChanged.age;
@@ -79,8 +91,8 @@ export class UsersService {
       return true;
     }
   }
-  onChangeUser(user:User):boolean{
-    let index = this.userFind(user.email,user.password);
+  onChangeUser(userChanged:User,user:User):boolean{
+    let index = this.userFind(userChanged.email,userChanged.password);
     if(index<0){
       return false;
     }else{
@@ -88,6 +100,7 @@ export class UsersService {
         this.users[index][key] = user[key];
       }
       this.usersChanged.emit(this.users.slice());
+      console.log(this.users);
       return true;
     }
 

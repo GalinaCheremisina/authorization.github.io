@@ -1,61 +1,58 @@
+<div class="col-xs-12 changing_form">
+<button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+  <span aria-hidden="true">&times;</span>
+</button>
+<h2>User {{user.name}} is changing</h2>
+<p class="successChange" *ngIf="successChange">Profile updated</p>
 <hr/>
-<div class="col-xs-12">
-  <h2>User {{user.name}} is changing</h2>
-    <form>
+    <form [formGroup]="fullFormControl">
       <div class="row">
           <div class="col-xs-12 form-group">
             <label for="name">Name</label>
+            <span><i class="fa fa-user-o" aria-hidden="true"></i></span>
             <input 
-            type="text" 
-            id="name" 
-            value="{{user.name}}"
-            class="form-control"
-            #nameInput>
+            formControlName="nameControl"
+            type="text">
           </div>
           <div class="col-xs-12 form-group">
             <label for="surname">Surname</label>
+            <span><i class="fa fa-user-o" aria-hidden="true"></i></span>
             <input 
-            type="text" 
-            id="surname" 
-            value="{{user.surname}}"
-            class="form-control"
-            #surname>
-          </div>
-          <div class="col-xs-12 form-group">
-            <label for="secondName">SecondName</label>
-            <input 
-            type="text" 
-            id="secondName" 
-            value="{{user.secondName}}"
-            class="form-control"
-            #secondName>
+            formControlName="surnameControl"
+            type="text">
           </div>
           <div class="col-xs-12 form-group">
             <label for="age">Age</label>
+            <span><i class="fa fa-info" aria-hidden="true"></i></span>
             <input 
-            type="number" 
-            id="age" 
-            value="{{user.age}}"
-            class="form-control"
-            #age>
+            formControlName="ageControl"
+            type="number">
           </div>
           <div class="col-xs-12 form-group">
             <label for="email">E-mail</label>
+            <span><i class="fa fa-envelope" aria-hidden="true"></i></span>
             <input 
-            type="email" 
-            id="email" 
-            value="{{user.email}}"
-            class="form-control"
-            #email>
+            formControlName="emailControl"
+            type="email">
+            <span class="check">
+              <i class="fa"
+                [ngClass]="{'fa-times':(!validEmailInput),
+                            'fa-check': validEmailInput}" 
+                aria-hidden="true">
+            </i></span>
           </div>
           <div class="col-xs-12 form-group">
             <label for="password">Password</label>
+            <span><i class="fa fa-key" aria-hidden="true"></i></span>
             <input 
-            type="text" 
-            id="password" 
-            value="{{user.password}}"
-            class="form-control"
-            #password>
+            formControlName="passwordControl"
+            type="text">
+            <span class="check">
+              <i class="fa"
+                [ngClass]="{'fa-times':(!validPasswordInput),
+                            'fa-check': validPasswordInput}" 
+                aria-hidden="true">
+            </i></span>
           </div>
       </div>
       <div class="row">
@@ -63,6 +60,7 @@
             <div class="btn btn-success" type="submit" (click)="onChangeAnyUser()">Change</div>
         </div>
       </div>
+      <div class="clear"></div>
     </form>
   </div>
   <div class="clear"></div>
