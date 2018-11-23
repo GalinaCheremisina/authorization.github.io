@@ -14,6 +14,7 @@ export class FormChangeComponent implements OnInit {
   user:User; 
   userChanged:User;  
   fullFormControl:FormGroup;
+  validAgeInput:boolean = true;
   validEmailInput:boolean = true;
   validPasswordInput:boolean = true;
   successChange:boolean;
@@ -28,12 +29,14 @@ export class FormChangeComponent implements OnInit {
     this.fullFormControl = new FormGroup({
       nameControl : new FormControl(this.user.name,[]),
       surnameControl : new FormControl(this.user.surname,[]),
-      ageControl : new FormControl(this.user.age,[Validators.maxLength(2)]),
+      ageControl : new FormControl(this.user.age,[ageValidator]),
       emailControl : new FormControl(this.user.email,[Validators.required,emailValidator]),
       passwordControl : new FormControl(this.user.password,[Validators.minLength(3),Validators.required]),
     });
+    
     this.fullFormControl.valueChanges.subscribe(
       (value)=>{ 
+        this.successChange = false; 
         const pattern:RegExp = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
 
         if(value.emailControl!==this.user.email){
@@ -44,11 +47,14 @@ export class FormChangeComponent implements OnInit {
           if(value.passwordControl.toString().length >2) this.validPasswordInput = true;
             else this.validPasswordInput = false;
         } else this.validPasswordInput = true;
+        if(value.ageControl.toString().length >2) this.validAgeInput = false;
+         else this.validAgeInput = true;
       }
     );
   }
 
   onChangeAnyUser(){
+    this.successChange = false;  
     if(this.fullFormControl.valid){
      let userChanged:User = new User(
       this.fullFormControl.value.nameControl,
@@ -67,5 +73,10 @@ function emailValidator(formControl:FormControl){
   let pattern:RegExp = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
   if(!pattern.test(formControl.value)) 
     return {emailValidator:{message:'E-mail incorrect'}};
+    return null;
+}
+function ageValidator(formControl:FormControl){
+  if(formControl.value.toString().length > 2) 
+    return {ageValidator:{message:'Age incorrect'}};
     return null;
 }

@@ -1,14 +1,20 @@
 /**
  * The service works users
  * @constructor
- * @param {User[]} users - The array of users
- * @param {userChecked}  - The active user
- * @param {userLogged}  - The event that works when a user has logged in
- * @param {}  - The 
- * @param {}  - The 
- * @param {}  - The 
- * @param {}  - The 
- * @param {}  - The 
+ * @param {User[]} users - The private array of users
+ * @param {User} userChecked - The active user
+ * @param {EventEmitter<boolean>} userLogged - The event that works when a user has logged in
+ * @param {EventEmitter<User[]>} usersChanged - The event that works when a user has changed
+ * @function {User[]} getUsers() - The public array of users
+ * @function {void} goToPage()  - The page navigation
+ * @function {number} userFind()  - The position where user is
+ * @function {boolean} userLogin() - It checks for user existence 
+ * @function {boolean} userIsActive() - It checks for user activity 
+ * @function {void} activeUserChange() - It changes the active user
+ * @function {boolean} onChangeUser() - It changes any user 
+ * @function {boolean} onDeleteUser() - It removes any user 
+ * @function {void} onAddUser() - It adds a new user 
+ * @function {void} inLogOut() - User log out 
  */
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
@@ -35,15 +41,18 @@ export class UsersService {
   getUsers():User[]{
     return this.users.slice();
   }
+
   goToPage():void{
     this._router.navigate(['profile']);
   }
+
   userFind(username:string,password:string):number{
     for (let i = 0; i < this.users.length ; i++) {
       if (this.users[i].email === username && this.users[i].password === password) return i;
     }
     return (-1);
   } 
+
   userLogin(username:string,password:string):boolean{
     let index = this.userFind(username,password);
     if(index<0){
@@ -55,6 +64,13 @@ export class UsersService {
     }
 
   }
+
+  userIsActive(user:User):boolean{
+    if(user.name === this.userChecked.name && user.password ===this.userChecked.password)
+    return true;
+    return false;
+  }
+
   activeUserChange(userChanged:User):void{
     this.userChecked.name = userChanged.name;
     this.userChecked.surname = userChanged.surname;
@@ -62,13 +78,21 @@ export class UsersService {
     this.userChecked.email = userChanged.email;
     this.userChecked.password = userChanged.password;
     this.usersChanged.emit(this.users.slice());
-    console.log(this.users);
   }
-  userIsActive(user:User):boolean{
-    if(user.name === this.userChecked.name && user.password ===this.userChecked.password)
-    return true;
-    return false;
+
+  onChangeUser(userChanged:User,user:User):boolean{
+    let index = this.userFind(userChanged.email,userChanged.password);
+    if(index<0){
+      return false;
+    }else{
+      for (let key in this.users[index]) {
+        this.users[index][key] = user[key];
+      }
+      this.usersChanged.emit(this.users.slice());
+      return true;
+    }
   }
+
   onDeleteUser(user:User):boolean{
     let index = this.userFind(user.email,user.password);
     if(index<0){
@@ -79,25 +103,12 @@ export class UsersService {
       return true;
     }
   }
-  onChangeUser(userChanged:User,user:User):boolean{
-    let index = this.userFind(userChanged.email,userChanged.password);
-    if(index<0){
-      return false;
-    }else{
-      for (let key in this.users[index]) {
-        this.users[index][key] = user[key];
-      }
-      this.usersChanged.emit(this.users.slice());
-      console.log(this.users);
-      return true;
-    }
 
-  }
   onAddUser(userNew:User):void{
     this.users.push(userNew);
     this.usersChanged.emit(this.users.slice());
   }
-  /*The description of function inLogOut */
+  
   inLogOut():void{
     this.userChecked = new User();
     this.userLogged.emit(false);

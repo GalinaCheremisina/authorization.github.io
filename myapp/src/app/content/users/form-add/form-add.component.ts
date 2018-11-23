@@ -13,6 +13,7 @@ export class FormAddComponent implements OnInit  {
 
   newuser:User;
   fullFormControl:FormGroup;
+  validAgeInput:boolean = true;
   validEmailInput:boolean = false;
   validPasswordInput:boolean = false;
   successChange:boolean;
@@ -26,23 +27,28 @@ export class FormAddComponent implements OnInit  {
     this.fullFormControl = new FormGroup({
       nameControl : new FormControl(),
       surnameControl : new FormControl(),
-      ageControl : new FormControl('',[Validators.maxLength(2)]),
+      ageControl : new FormControl('',[ageValidator]),
       emailControl : new FormControl('',[Validators.required,emailValidator]),
       passwordControl : new FormControl('',[Validators.minLength(3),Validators.required]),
     });
+
     this.fullFormControl.valueChanges.subscribe(
       (value)=>{ 
+        this.successChange = false;  
         const pattern:RegExp = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
 
         if(pattern.test(value.emailControl)) this.validEmailInput = true;
             else this.validEmailInput = false;
         if(value.passwordControl.toString().length >2) this.validPasswordInput = true;
             else this.validPasswordInput = false;
+        if(value.ageControl.toString().length >2) this.validAgeInput = false;
+            else this.validAgeInput = true;
       }
     );
   }
 
   onAddAnyNewuser(){
+    this.successChange = false;  
     if(this.fullFormControl.valid){
      let userNew:User = new User(
       this.fullFormControl.value.nameControl,
@@ -61,5 +67,10 @@ function emailValidator(formControl:FormControl){
   let pattern:RegExp = /^([a-z0-9_\.-])+@[a-z0-9-]+\.([a-z]{2,4}\.)?[a-z]{2,4}$/i;
   if(!pattern.test(formControl.value)) 
     return {emailValidator:{message:'E-mail incorrect'}};
+    return null;
+}
+function ageValidator(formControl:FormControl){
+  if(formControl.value.toString().length > 2) 
+    return {ageValidator:{message:'Age incorrect'}};
     return null;
 }

@@ -22,6 +22,12 @@
                 <input 
                 formControlName="ageControl"
                 type="number">
+                <span class="check">
+                  <i class="fa"
+                    [ngClass]="{'fa-times':(!validAgeInput),
+                                'fa-check': validAgeInput}" 
+                    aria-hidden="true">
+                </i></span>
               </div>
               <div class="col-xs-12 form-group">
                 <label for="email">E-mail</label>
