@@ -46,23 +46,20 @@ export class UsersService {
     this._router.navigate(['profile']);
   }
 
-  userFind(username:string,password:string):number{
-    for (let i = 0; i < this.users.length ; i++) {
-      if (this.users[i].email === username && this.users[i].password === password) return i;
-    }
-    return (-1);
-  } 
+  userFind(username:string,password:string):User[]{
+    return this.users.filter((user)=>{
+      return (user.email === username && user.password === password)?user:null;
+    })
+  }
 
   userLogin(username:string,password:string):boolean{
-    let index = this.userFind(username,password);
-    if(index<0){
-      return false;
-    }else{
-      this.userChecked = this.users[index];
+    let user:User[] = this.userFind(username,password);
+    if(user.length > 0){
+      this.userChecked = user[0];
       this.userLogged.emit(true);
       return true;
     }
-
+      return false;
   }
 
   userIsActive(user:User):boolean{
@@ -72,31 +69,31 @@ export class UsersService {
   }
 
   activeUserChange(userChanged:User):void{
-    this.userChecked.name = userChanged.name;
-    this.userChecked.surname = userChanged.surname;
-    this.userChecked.age = userChanged.age;
-    this.userChecked.email = userChanged.email;
-    this.userChecked.password = userChanged.password;
+    for (let key in this.userChecked) {
+      this.userChecked[key] = userChanged[key];
+    }
     this.usersChanged.emit(this.users.slice());
   }
 
   onChangeUser(userChanged:User,user:User):boolean{
-    let index = this.userFind(userChanged.email,userChanged.password);
-    if(index<0){
-      return false;
-    }else{
-      for (let key in this.users[index]) {
-        this.users[index][key] = user[key];
+    let userFinded:User[] = this.userFind(userChanged.email,userChanged.password);
+    if(userFinded.length > 0){
+      for (let key in userFinded[0]) {
+        userFinded[0][key] = user[key];
       }
       this.usersChanged.emit(this.users.slice());
       return true;
     }
+      return false;
   }
 
   onDeleteUser(user:User):boolean{
-    let index = this.userFind(user.email,user.password);
-    if(index<0){
-      return false;
+    let index:number;
+    for (let i = 0; i < this.users.length ; i++) {
+      if (this.users[i].email === user.email && this.users[i].password === user.password) index = i;
+    }
+    if(index < 0){
+    return false;
     }else{
       this.users.splice(index,1);
       this.usersChanged.emit(this.users.slice());
